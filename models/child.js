@@ -16,11 +16,11 @@ const childSchema = new mongoose.Schema({
   },
   likes: [{
     type: mongoose.Schema.Types.ObjectId, // This specifies a one-to-many referenced relationship
-    ref: 'User' // This refers to the name of the model that this field is related to (user in this case)
+    ref: 'FoodItem' // This refers to the name of the model that this field is related to (user in this case)
   }],
   dislikes: [{
     type: mongoose.Schema.Types.ObjectId, // This specifies a one-to-many referenced relationship
-    ref: 'User' // This refers to the name of the model that this field is related to (user in this case)
+    ref: 'FoodItem' // This refers to the name of the model that this field is related to (user in this case)
   }],
 })
 

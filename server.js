@@ -13,6 +13,7 @@ const app = express()
 const port = process.env.PORT
 
 // generic middleware
+app.use(cors())
 app.use(express.json()) //turns responses and requests in to json 
 //app.use(mongoSanitize()) // prevents code injection
 app.use(morgan('dev')) // generic logger , you can change the 'dev' to other things, check docs

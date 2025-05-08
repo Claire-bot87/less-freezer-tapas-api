@@ -1,13 +1,15 @@
 import express from 'express'
 import validateToken from '../middleware/validateToken.js'
 import Child from '../models/child.js'
-
+import FoodItem from '../models/foodItem.js'
 const router = express.Router()
 
 // * Index route
 router.get('/childs', async (req, res, next) => {
   try {
-    const childs = await Child.find().populate('parent')
+    const childs = await Child.find()
+    .populate('parent')
+    .populate('likes')
     return res.json(childs)
   } catch (error) {
     next(error)
@@ -124,5 +126,52 @@ router.delete('/childs/:childId', validateToken, async (req, res, next) => {
 //     next(error)
 //   }
 // })
+
+
+// * Show child's likes
+router.get('/childs/:childId/likes', validateToken, async (req, res, next) => {
+  try {
+
+      const user = await Child.findById(req.user._id).populate("likes")
+      console.log(user)
+
+      if(!user) return res.status(404).json({ message: 'User not found' })
+      console.log(child.likes)
+      return res.json(child.likes)
+  } catch (error) {
+      next(error)
+  }
+})
+
+
+
+
+
+// * Add foodItem to likes
+router.put('/childs/:childId/likes', validateToken, async (req, res, next) => {
+  try {
+      const { foodItemId }= req.body
+      // const userId = req.user._id
+      const { childId } = req.params
+
+      const child = await Child.findById(childId)
+      if(!child) return res.status(404).json({ message: 'Child not found' })
+    //  if(!userId) return res.status(404).json({ message: 'User not found' })
+
+      const foodItem = await FoodItem.findById(foodItemId)
+      if (!foodItem) return res.status(404).json({ message: 'Food item not found' })
+
+   
+        const updatedChild = await Child.findByIdAndUpdate(
+          childId,
+          { $addToSet: { likes: foodItemId } },
+          { new: true }
+        ).populate('likes')
+
+      return res.json(updatedChild)
+  } catch (error) {
+      next(error)
+  }
+})
 
 export default router
