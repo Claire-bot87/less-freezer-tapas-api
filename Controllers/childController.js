@@ -40,8 +40,9 @@ router.get('/childs/:childId', async (req, res, next) => {
     const { childId } = req.params
 
     // 1. Search for the post based on the postId in the params
-    const child = await Child.findById(childId).populate('parent')
-
+    const child = await Child.findById(childId)
+    .populate('parent')
+    .populate('likes')
     // 2. Send a 404 if not found
     if(!child) return res.status(404).json({ message: 'Post not found' })
 
@@ -148,30 +149,59 @@ router.get('/childs/:childId/likes', validateToken, async (req, res, next) => {
 
 
 // * Add foodItem to likes
-router.put('/childs/:childId/likes', validateToken, async (req, res, next) => {
-  try {
-      const { foodItemId }= req.body
-      // const userId = req.user._id
-      const { childId } = req.params
+// router.put('/childs/:childId/likes',  validateToken, async (req, res, next) => {
+//   try {
+//       const { foodItemId }= req.body
+//       // const userId = req.user._id
+//       const { childId } = req.params
 
-      const child = await Child.findById(childId)
-      if(!child) return res.status(404).json({ message: 'Child not found' })
-    //  if(!userId) return res.status(404).json({ message: 'User not found' })
+//       const child = await Child.findById(childId)
+//       if(!child) return res.status(404).json({ message: 'Child not found' })
+//     //  if(!userId) return res.status(404).json({ message: 'User not found' })
 
-      const foodItem = await FoodItem.findById(foodItemId)
-      if (!foodItem) return res.status(404).json({ message: 'Food item not found' })
+//       const foodItem = await FoodItem.findById(foodItemId)
+//       if (!foodItem) return res.status(404).json({ message: 'Food item not found' })
 
    
-        const updatedChild = await Child.findByIdAndUpdate(
-          childId,
-          { $addToSet: { likes: foodItemId } },
-          { new: true }
-        ).populate('likes')
+//         const updatedChild = await Child.findByIdAndUpdate(
+//           childId,
+//           { $addToSet: { likes: foodItemId } },
+//           { new: true }
+//         ).populate('likes')
 
-      return res.json(updatedChild)
+//       return res.json(updatedChild)
+//   } catch (error) {
+//       next(error)
+//   }
+// })
+
+
+
+// PUT /childs/:childId/likes
+router.put('/childs/:childId/likes', 
+  //validateToken,
+   async (req, res, next) => {
+  try {
+      const { childId } = req.params;
+      const { foodItemId } = req.body;
+
+      const child = await Child.findById(childId);
+      if (!child) return res.status(404).json({ message: 'Child not found' });
+
+      if (!foodItemId) return res.status(400).json({ message: 'Food item ID is required' });
+
+      // Avoid duplicates
+      if (!child.likes.includes(foodItemId)) {
+        child.likes.push(foodItemId);
+        await child.save();
+      }
+
+      const updatedChild = await Child.findById(childId).populate('likes');
+      return res.json(updatedChild);
   } catch (error) {
-      next(error)
+      next(error);
   }
-})
+});
+
 
 export default router
