@@ -9,6 +9,14 @@ const childSchema = new mongoose.Schema({
       validator: (content) => content.length <= 50
     }
   },
+  gender: {
+    type: String,
+    required: true,
+    validate: {
+      message: 'A name must not exceed 50 characters.',
+      validator: (content) => content.length <= 50
+    }
+  },
   parent: {
     type: mongoose.Schema.Types.ObjectId, // This specifies a one-to-many referenced relationship
     ref: 'User', // This refers to the name of the model that this field is related to (user in this case)

@@ -43,6 +43,7 @@ router.get('/childs/:childId', async (req, res, next) => {
     const child = await Child.findById(childId)
     .populate('parent')
     .populate('likes')
+    .populate('dislikes')
     // 2. Send a 404 if not found
     if(!child) return res.status(404).json({ message: 'Post not found' })
 
@@ -203,5 +204,31 @@ router.put('/childs/:childId/likes',
   }
 });
 
+
+// PUT /childs/:childId/dislikes
+router.put('/childs/:childId/dislikes', 
+  //validateToken,
+   async (req, res, next) => {
+  try {
+      const { childId } = req.params;
+      const { foodItemId } = req.body;
+
+      const child = await Child.findById(childId);
+      if (!child) return res.status(404).json({ message: 'Child not found' });
+
+      if (!foodItemId) return res.status(400).json({ message: 'Food item ID is required' });
+
+      // Avoid duplicates
+      if (!child.dislikes.includes(foodItemId)) {
+        child.dislikes.push(foodItemId);
+        await child.save();
+      }
+
+      const updatedChild = await Child.findById(childId).populate('dislikes');
+      return res.json(updatedChild);
+  } catch (error) {
+      next(error);
+  }
+});
 
 export default router
