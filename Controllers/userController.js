@@ -47,6 +47,24 @@ router.post('/signup', async (req, res, next) => {
       next(error)
     }
   })
+
+  // * Show route
+  router.get('/users/:userId', async (req, res, next) => {
+    try {
+      const { userId } = req.params
+  
+      // 1. Search for the post based on the postId in the params
+      const user = await User.findById(userId)
+     .populate('username')
+      // 2. Send a 404 if not found
+      if(!user) return res.status(404).json({ message: 'Post not found' })
+  
+      // 3. Return the post if found
+      return res.json(user)
+    } catch (error) {
+      next(error)
+    }
+  })
   
 
 export default router
