@@ -20,21 +20,6 @@ app.use(express.json()) //turns responses and requests in to json
 //app.use(mongoSanitize()) // prevents code injection
 app.use(morgan('dev')) // generic logger , you can change the 'dev' to other things, check docs
 
-
-app.get('/ping', async (req, res) => {
-    try {
-      await mongoose.connect(process.env.MONGODB_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        serverSelectionTimeoutMS: 10000,
-      });
-      res.send('✅ Mongo connected!');
-    } catch (err) {
-      console.log('Mongo connection failed:', err);
-      res.status(500).send('❌ Mongo failed');
-    }
-  });
-  console.log("✅ /ping route registered");
   
 // controllers
 app.use('/', userController)
@@ -47,17 +32,17 @@ app.use('/', mealController)
 
 //server conection
 
-// const establishServerConnections = async () => {
-//     try {
+const establishServerConnections = async () => {
+    try {
 
-//         await mongoose.connect(process.env.MONGODB_URI)
-//         console.log('connected to database')
+        await mongoose.connect(process.env.MONGODB_URI)
+        console.log('connected to database')
 
-//         // app.listen(port, () => console.log('server up and running on port '))
-//     }catch (error) {
-//         console.log(error)
-//     }
-// }
+        // app.listen(port, () => console.log('server up and running on port '))
+    }catch (error) {
+        console.log(error)
+    }
+}
 
-// establishServerConnections()
+establishServerConnections()
 export const handler = serverless(app)
