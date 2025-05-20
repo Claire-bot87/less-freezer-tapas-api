@@ -59,5 +59,5 @@ app.use('/', mealController)
 //     }
 // }
 
-establishServerConnections()
+// establishServerConnections()
 export const handler = serverless(app)
