@@ -10,6 +10,7 @@ import childController from '../../Controllers/childController.js'
 import foodItemController from '../../Controllers/foodItemController.js'
 import mealController from '../../Controllers/mealController.js'
 
+
 const app = express()
 const port = process.env.PORT
 
@@ -20,6 +21,20 @@ app.use(express.json()) //turns responses and requests in to json
 app.use(morgan('dev')) // generic logger , you can change the 'dev' to other things, check docs
 
 
+app.get('/ping', async (req, res) => {
+    try {
+      await mongoose.connect(process.env.MONGODB_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        serverSelectionTimeoutMS: 5000,
+      });
+      res.send('Mongo connected!');
+    } catch (error) {
+      console.log('Ping route Mongo error:', error);
+      res.status(500).send('Mongo failed');
+    }
+  });
+  
 // controllers
 app.use('/', userController)
 app.use('/', childController)
