@@ -34,7 +34,7 @@ app.get('/ping', async (req, res) => {
       res.status(500).send('❌ Mongo failed');
     }
   });
-  
+  console.log("✅ /ping route registered");
   
 // controllers
 app.use('/', userController)
