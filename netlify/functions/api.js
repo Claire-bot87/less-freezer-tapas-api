@@ -19,7 +19,9 @@ app.use(cors())
 app.use(express.json()) //turns responses and requests in to json 
 //app.use(mongoSanitize()) // prevents code injection
 app.use(morgan('dev')) // generic logger , you can change the 'dev' to other things, check docs
-
+app.get("/", (req, res) =>{
+    res.send("welcome")
+})
   
 // controllers
 app.use('/', userController)
