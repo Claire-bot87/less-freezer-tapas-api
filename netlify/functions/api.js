@@ -26,14 +26,15 @@ app.get('/ping', async (req, res) => {
       await mongoose.connect(process.env.MONGODB_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        serverSelectionTimeoutMS: 5000,
+        serverSelectionTimeoutMS: 10000,
       });
-      res.send('Mongo connected!');
-    } catch (error) {
-      console.log('Ping route Mongo error:', error);
-      res.status(500).send('Mongo failed');
+      res.send('✅ Mongo connected!');
+    } catch (err) {
+      console.log('Mongo connection failed:', err);
+      res.status(500).send('❌ Mongo failed');
     }
   });
+  
   
 // controllers
 app.use('/', userController)
@@ -46,17 +47,17 @@ app.use('/', mealController)
 
 //server conection
 
-const establishServerConnections = async () => {
-    try {
+// const establishServerConnections = async () => {
+//     try {
 
-        await mongoose.connect(process.env.MONGODB_URI)
-        console.log('connected to database')
+//         await mongoose.connect(process.env.MONGODB_URI)
+//         console.log('connected to database')
 
-        // app.listen(port, () => console.log('server up and running on port '))
-    }catch (error) {
-        console.log(error)
-    }
-}
+//         // app.listen(port, () => console.log('server up and running on port '))
+//     }catch (error) {
+//         console.log(error)
+//     }
+// }
 
 establishServerConnections()
 export const handler = serverless(app)
