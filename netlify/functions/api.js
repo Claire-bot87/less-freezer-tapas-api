@@ -41,6 +41,7 @@ app.use('/', mealController)
 
 //server conection
 
+
 const establishServerConnections = async () => {
     try {
 
@@ -53,6 +54,8 @@ const establishServerConnections = async () => {
         console.log(error)
     }
 }
+
+
 
 establishServerConnections()
 export const handler = serverless(app)

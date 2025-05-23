@@ -1,17 +1,12 @@
-// testMongoConnection.js
-
 import mongoose from 'mongoose';
 
-const uri = 'mongodb+srv://clairebrady12:TF6BrDENUXLqtPen@student-cluster.u8siv.mongodb.net/less-freezer-tapas?retryWrites=true&w=majority&appName=student-cluster';
+const uri = 'mongodb+srv://clairebrady12:TF6BrDENUXLqtPen@student-cluster.u8siv.mongodb.net/less-freezer-tapas?retryWrites=true&w=majority';
 
-mongoose.connect(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(uri)
   .then(() => {
-    console.log('✅ Connected to MongoDB Atlas successfully!');
-    mongoose.connection.close(); // Optional: close after test
+    console.log('✅ Connected to MongoDB Atlas');
+    mongoose.disconnect();
   })
-  .catch(err => {
-    console.error('❌ Failed to connect to MongoDB Atlas:', err);
+  .catch((err) => {
+    console.error('❌ MongoDB connection error:', err);
   });
