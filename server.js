@@ -19,6 +19,7 @@ app.use(express.json()) //turns responses and requests in to json
 app.use(morgan('dev')) // generic logger , you can change the 'dev' to other things, check docs
 
 
+
 // controllers
 app.use('/', userController)
 app.use('/', childController)

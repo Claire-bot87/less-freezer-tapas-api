@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import User from '../models/user.js'
 
-export default async function validateToken(req, res, next) {
+export async function validateToken(req, res, next) {
   try {
     // 1. Check that an authorization header is present on the request
     const authHeader = req.headers.authorization

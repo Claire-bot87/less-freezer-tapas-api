@@ -1,5 +1,5 @@
 import express from 'express'
-import validateToken from '../middleware/validateToken.js'
+import { validateToken } from '../middleware/validateToken.js'
 import FoodItem from '../models/foodItem.js'
 
 const router = express.Router()
@@ -125,4 +125,4 @@ router.delete('/foodItems/:foodItemId', validateToken, async (req, res, next) =>
 //   }
 // })
 
-export default router
+export { router as foodItemController }

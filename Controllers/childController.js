@@ -1,5 +1,5 @@
 import express from 'express'
-import validateToken from '../middleware/validateToken.js'
+import { validateToken } from '../middleware/validateToken.js'
 import Child from '../models/child.js'
 import FoodItem from '../models/foodItem.js'
 const router = express.Router()
@@ -231,4 +231,4 @@ router.put('/childs/:childId/dislikes',
   }
 });
 
-export default router
+export {router as childController}

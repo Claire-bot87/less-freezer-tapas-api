@@ -1,5 +1,5 @@
 import express from 'express'
-import validateToken from '../middleware/validateToken.js'
+import { validateToken } from '../middleware/validateToken.js'
 import Meal from '../models/meal.js'
 
 const router = express.Router()
@@ -125,4 +125,4 @@ router.get('/meals/:mealId', async (req, res, next) => {
 //   }
 // })
 
-export default router
+export { router as mealController }

@@ -1,7 +1,8 @@
 [build]
-  functions = "functions"
-  external_node_modules = ["express"]
+  functions = "netlify/functions"
   node_bundler = "esbuild"
+[functions]
+  external_node_modules = ["express", "mongoose"]
 
 # Catch-all redirect for API calls
 [[redirects]]
