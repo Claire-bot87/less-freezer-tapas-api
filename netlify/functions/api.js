@@ -50,9 +50,10 @@ const connectToDatabase = async () => {
   }
 };
 
+const serverlessHandler = serverless(app);
 // export wrapped handler
 export const handler = async (event, context) => {
   await connectToDatabase(); // Ensures connection is made (only once per cold start)
-  const serverlessHandler = serverless(app);
+
   return serverlessHandler(event, context);
 };
