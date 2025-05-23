@@ -1,6 +1,6 @@
 import express from 'express'
 import serverless from 'serverless-http'
-// import mongoose from 'mongoose'
+import mongoose from 'mongoose'
 import morgan from 'morgan'
 // import errorHandler from "../../middleware/errorHandler.js"
 // import mongoSanitize from 'express-mongo-sanitize'
