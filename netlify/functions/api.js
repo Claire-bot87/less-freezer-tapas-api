@@ -22,6 +22,12 @@ app.use(morgan('dev'))
 app.get("/", (req, res) => {
   res.send("welcome")
 })
+app.get('/test-signup-route', (req, res) => {
+    const routes = app._router.stack
+      .filter(r => r.route)
+      .map(r => r.route.path);
+    res.json({ loadedRoutes: routes });
+  });
 
 // controllers
 app.use('/', userController)
