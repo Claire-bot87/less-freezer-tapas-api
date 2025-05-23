@@ -41,18 +41,18 @@ app.use('/', mealController)
 
 //server conection
 
-// const establishServerConnections = async () => {
-//     try {
+const establishServerConnections = async () => {
+    try {
 
-//         await mongoose.connect(process.env.MONGODB_URI)
-//         console.log('connected to database')
+        await mongoose.connect(process.env.MONGODB_URI)
+        console.log('connected to database')
 
-//         // app.listen(port, () => console.log('server up and running on port '))
-//     }catch (error) {
-//         console.log("DATABASE ISSUE")
-//         console.log(error)
-//     }
-// }
+        // app.listen(port, () => console.log('server up and running on port '))
+    }catch (error) {
+        console.log("DATABASE ISSUE")
+        console.log(error)
+    }
+}
 
-// establishServerConnections()
+establishServerConnections()
 export const handler = serverless(app)
