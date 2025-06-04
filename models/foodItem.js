@@ -25,4 +25,5 @@ const foodItemSchema = new mongoose.Schema({
 
 
 
-export default mongoose.model('FoodItem', foodItemSchema)
+const FoodItem =  mongoose.model('FoodItem', foodItemSchema)
+export {FoodItem}

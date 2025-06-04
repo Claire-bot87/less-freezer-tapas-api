@@ -34,4 +34,5 @@ const childSchema = new mongoose.Schema({
 
 
 
-export default mongoose.model('Child', childSchema)
+const Child =  mongoose.model('Child', childSchema)
+export {Child}

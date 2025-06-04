@@ -1,5 +1,5 @@
 import express from 'express'
-import User from '../models/user.js'
+import {User} from '../models/user.js'
 import { generateToken } from '../utils/tokens.js'
 
 //Router 
@@ -11,6 +11,7 @@ console.log('✅ userController loaded');
 
 
 router.post('/signup', async (req, res, next) => {
+  console.log('SIGNUP BODY', req.body)
     try {
       const user = await User.create(req.body)
   
@@ -28,6 +29,7 @@ router.post('/signup', async (req, res, next) => {
 
 
   router.post('/signin', async (req, res, next) => {
+      console.log('SIGNIN BODY', req.body.password)
     try {
       // Search the user collection for a document with a matching username OR email
       const foundUser = await User.findOne({ $or: [{ username: req.body.identifier }, { email: req.body.identifier }] })

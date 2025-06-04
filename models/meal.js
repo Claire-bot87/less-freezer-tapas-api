@@ -35,4 +35,5 @@ const mealSchema = new mongoose.Schema({
 
 
 
-export default mongoose.model('Meal', mealSchema)
+const Meal = mongoose.model('Meal', mealSchema)
+export {Meal}

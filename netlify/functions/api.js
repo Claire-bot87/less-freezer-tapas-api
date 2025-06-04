@@ -50,10 +50,13 @@ const connectToDatabase = async () => {
   }
 };
 
-const serverlessHandler = serverless(app);
+//const serverlessHandler = serverless(app);
 // export wrapped handler
-export const handler = async (event, context) => {
-  await connectToDatabase(); // Ensures connection is made (only once per cold start)
+// export const handler = async (event, context) => {
+//   await connectToDatabase(); // Ensures connection is made (only once per cold start)
 
-  return serverlessHandler(event, context);
-};
+//   return serverlessHandler(event, context);
+// };
+app.listen(3005,async ()=>{
+   await connectToDatabase();
+})

@@ -1,7 +1,7 @@
 import express from 'express'
 import { validateToken } from '../middleware/validateToken.js'
-import Child from '../models/child.js'
-import FoodItem from '../models/foodItem.js'
+import {Child} from '../models/child.js'
+import {FoodItem} from '../models/foodItem.js'
 const router = express.Router()
 
 // * Index route

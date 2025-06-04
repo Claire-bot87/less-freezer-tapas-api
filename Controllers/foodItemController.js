@@ -1,6 +1,6 @@
 import express from 'express'
 import { validateToken } from '../middleware/validateToken.js'
-import FoodItem from '../models/foodItem.js'
+import {FoodItem} from '../models/foodItem.js'
 
 const router = express.Router()
 
