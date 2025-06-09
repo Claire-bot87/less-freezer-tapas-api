@@ -231,4 +231,4 @@ router.put('/childs/:childId/dislikes',
   }
 });
 
-export {router as childController}
+export default router;

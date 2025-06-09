@@ -72,4 +72,6 @@ router.post('/signup', async (req, res, next) => {
   })
   
 
-export { router as userController }
+//export { router as userController }
+
+export default router

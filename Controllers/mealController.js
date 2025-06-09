@@ -52,4 +52,6 @@ router.get('/meals/:mealId', async (req, res, next) => {
 
 
 
-export { router as mealController }
+//export { router as mealController }
+
+export default router;

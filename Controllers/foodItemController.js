@@ -125,4 +125,6 @@ router.delete('/foodItems/:foodItemId', validateToken, async (req, res, next) =>
 //   }
 // })
 
-export { router as foodItemController }
+//export { router as foodItemController }
+
+export default router;
