@@ -10,7 +10,7 @@ import foodItemController from './Controllers/foodItemController.js'
 import mealController from './Controllers/mealController.js'
 
 const app = express()
-const port = process.env.PORT
+const port = process.env.PORT ||3000
 
 // generic middleware
 app.use(cors())
@@ -37,7 +37,7 @@ const establishServerConnections = async () => {
         await mongoose.connect(process.env.MONGODB_URI)
         console.log('connected to database')
 
-        app.listen(port, () => console.log('server up and running on port '))
+        app.listen(port, () => console.log('server up and running on ${port} '))
     }catch (error) {
         console.log(error)
     }
