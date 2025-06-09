@@ -19,6 +19,20 @@ app.use(cors())
 app.use(express.json())
 app.use(morgan('dev'))
 
+app.use((req, res, next) => {
+if (Buffer.isBuffer(req.body)) {
+try {
+const bodyString = req.body.toString('utf-8')
+req.body = JSON.parse(bodyString)
+console.log('✅ Buffer to JSON:', req.body)
+} catch (error) {
+console.error('❌ Failed to parse Buffer:', error)
+return res.status(400).json({ message: 'Invalid JSON in request body' })
+}
+}
+next()
+})
+
 app.get("/", (req, res) => {
   res.send("welcome")
 })
@@ -50,13 +64,13 @@ const connectToDatabase = async () => {
   }
 };
 
-//const serverlessHandler = serverless(app);
-// export wrapped handler
-// export const handler = async (event, context) => {
-//   await connectToDatabase(); // Ensures connection is made (only once per cold start)
+const serverlessHandler = serverless(app);
+//export wrapped handler
+export const handler = async (event, context) => {
+  await connectToDatabase(); // Ensures connection is made (only once per cold start)
 
-//   return serverlessHandler(event, context);
-// };
-app.listen(3005,async ()=>{
-   await connectToDatabase();
-})
+  return serverlessHandler(event, context);
+};
+// app.listen(3005,async ()=>{
+//    await connectToDatabase();
+// })
